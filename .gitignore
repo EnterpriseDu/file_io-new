@@ -1,0 +1,11 @@
+*.[oa]
+*.so
+*~
+null
+
+src/*.[oa]
+inc/*.[oa]
+src/*~
+inc/*~
+
+*.backup
