@@ -8,7 +8,7 @@
 #include <dirent.h>
 
 
-int make_directory(char * add_mkdir, char * label, char * scheme, char * version, int const m, int const n, double const OPT[])
+int make_directory(char * add_mkdir, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[])
 {
 /* OPT[0] is the maximal step to compute.
  * OPT[1] is the time to stop the computation
@@ -25,19 +25,19 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
  */
   char c_switch[4];
 
-  if(OPT[3])
+  if(CONFIG[13])
     c_switch[0] = 'A';
   else
     c_switch[0] = 'F';
-  if(OPT[6])
+  if(CONFIG[16])
     c_switch[1] = 'W';
   else
     c_switch[1] = 'S';
-  if(OPT[7])
+  if(CONFIG[18])
     c_switch[2] = 'D';
   else
     c_switch[2] = 'C';
-  if(OPT[8])
+  if(CONFIG[17])
     c_switch[3] = 'Y';
   else
     c_switch[3] = 'N';

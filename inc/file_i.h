@@ -12,7 +12,6 @@
 #endif
 
 #define L_BUFF 400
-#define N_CONF 19
 
 
 /* This function examines whether a string
