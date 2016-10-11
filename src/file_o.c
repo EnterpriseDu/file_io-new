@@ -7,6 +7,11 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
+#ifndef L_STR_IO
+#include "file_io.h"
+#endif
+
+
 
 int make_directory(char * add_mkdir, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[])
 {
@@ -46,9 +51,9 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
 
 
 
-  char directory[1000] = "";
-  char sub_dire[2000] = "";
-  char size[10];
+  char directory[L_STR_IO<<1] = "";
+  char sub_dire[L_STR_IO<<2] = "";
+  char size[L_STR_IO];
   int len, stat_mkdir;
 
   strcat(directory, label);
@@ -56,13 +61,13 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
   strcat(directory, scheme);
   strcat(directory, "_\0");
   strcat(directory, version);
-  sprintf(size, "%d", m);
   strcat(directory, "_\0");
+  sprintf(size, "%d", m);
   strcat(directory, size);
   if(n > 1)
   {
-    sprintf(size, "%d", n);
     strcat(directory, "x\0");
+    sprintf(size, "%d", n);
     strcat(directory, size);
   }
   strcat(directory, "_\0");
@@ -95,13 +100,17 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
   }
   closedir(dir_test);
   strcpy(sub_dire, add_mkdir);
-  strcat(add_mkdir, "rho\0");
-  mkdir(add_mkdir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+  strcat(sub_dire, "rho\0");
+  //printf("%s\n", sub_dire);
+  mkdir(sub_dire, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
   strcpy(sub_dire, add_mkdir);
-  strcat(add_mkdir, "mesh\0");
-  mkdir(add_mkdir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+  strcat(sub_dire, "mesh\0");
+  //printf("%s\n", sub_dire);
+  mkdir(sub_dire, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
   strcpy(sub_dire, add_mkdir);
-  strcat(add_mkdir, "debug\0");
+  strcat(sub_dire, "debug\0");
+  mkdir(sub_dire, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+  //printf("%s\n", sub_dire);
 
   return 0;
 }
