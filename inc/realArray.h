@@ -24,7 +24,7 @@ int insert_realArray(realArray * array);
 /*
  * p = 0, 1, 2,..., lenght-1
  */
-void locate_realArray(int p, realArray * array);
+int locate_realArray(int p, realArray * array);
 
 /*
  * Find a certain entry in the linked array

@@ -73,7 +73,7 @@ int insert_Text(Text * text, char * msg)
 /*
  * p = 0, 1, 2,..., lenght-1
  */
-void locate_Text(int p, Text * text)
+int locate_Text(int p, Text * text)
 {
   int j;
   Para * point;
@@ -81,9 +81,16 @@ void locate_Text(int p, Text * text)
   point = text->head;
   for(j = 0; j < p; ++j)
     if(point->next)
+    if(point->next)
+    {
       point = point->next;
+      ++count;
+    }
+    else
+      return count;//the link has only %d(count) compunonts while trying to reach [p]
 
   text->current = point;
+  return 0;
 }
 
 

@@ -70,17 +70,24 @@ int insert_realArray(realArray * array)
 /*
  * p = 0, 1, 2,..., lenght-1
  */
-void locate_realArray(int p, realArray * array)
+int locate_realArray(int p, realArray * array)
 {
-  int j;
+  int j, count = 0;
   realBox * point;
 
   point = array->head;
   for(j = 0; j < p; ++j)
     if(point->next)
+    {
       point = point->next;
+      ++count;
+    }
+    else
+      return count;//the link has only %d(count) compunonts while trying to reach [p]
 
   array->current = point;
+
+  return 0;
 }
 
 /*
@@ -98,8 +105,9 @@ int find_cargo_realArray(double * dest, int idx, realArray * array)
   if(location >= array->n_box)
     return 1;
   idx = idx-location*array->box_size;
-  if(idx >= array->tail_capacity)
-    return 2;
+  if(location > array->n_box-2)//location == array->n_box-1
+    if(idx >= array->tail_capacity)
+      return 2;
 
   locate_realArray(location, array);
   *dest = array->current->cargos[idx];

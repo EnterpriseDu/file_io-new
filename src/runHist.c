@@ -50,17 +50,23 @@ int insert_runHist(runHist * runhist)
 /*
  * p = 0, 1, 2,..., lenght-1
  */
-void locate_runHist(int p, runHist * runhist)
+int locate_runHist(int p, runHist * runhist)
 {
-  int j;
+  int j, count = 0;
   runNode * point;
 
   point = runhist->head;
   for(j = 0; j < p; ++j)
     if(point->next)
+    {
       point = point->next;
-
+      ++count;
+    }
+    else
+      return count;//the link has only %d(count) compunonts while trying to reach [p]
   runhist->current = point;
+
+  return 0;
 }
 
 void delete_runHist(runHist * runhist)

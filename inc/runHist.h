@@ -22,6 +22,6 @@ void init_runList(runHist * runhist);
 
 void insert_runList(runHist * runhist);
 
-void locate_runList(int p, runHist * runhist);
+int locate_runList(int p, runHist * runhist);
 
 void delete_runList(runHist * runhist);

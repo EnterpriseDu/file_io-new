@@ -20,7 +20,7 @@ int insert_Text(Text * text, char * msg);
 /*
  * p = 0, 1, 2,..., lenght-1
  */
-void locate_Text(int p, Text * text);
+int locate_Text(int p, Text * text);
 
 
 void delete_Text(Text * text);
