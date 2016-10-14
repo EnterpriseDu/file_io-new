@@ -22,14 +22,14 @@ int insert_runHist(runHist * runhist)
   {
     runhist->tail->next = (runNode *)malloc(sizeof(runNode));
     if(!runhist->tail->next)
-      return runhist->length;
+      return runhist->length+1;
     runhist->tail = runhist->tail->next;
   }
   else
   {
     runhist->tail = (runNode *)malloc(sizeof(runNode));
     if(!runhist->tail)
-      return runhist->length;
+      return runhist->length+1;
     runhist->head = runhist->tail;
   }
   ++(runhist->length);
@@ -52,7 +52,7 @@ int insert_runHist(runHist * runhist)
  */
 int locate_runHist(int p, runHist * runhist)
 {
-  int j, count = 0;
+  int j, count = 1;
   runNode * point;
 
   point = runhist->head;
@@ -63,7 +63,7 @@ int locate_runHist(int p, runHist * runhist)
       ++count;
     }
     else
-      return count;//the link has only %d(count) compunonts while trying to reach [p]
+      return count;//the link has only %d(count-1) compunonts while trying to reach [p]
   runhist->current = point;
 
   return 0;

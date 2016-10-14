@@ -72,7 +72,7 @@ int insert_realArray(realArray * array)
  */
 int locate_realArray(int p, realArray * array)
 {
-  int j, count = 0;
+  int j, count = 1;
   realBox * point;
 
   point = array->head;
@@ -83,7 +83,7 @@ int locate_realArray(int p, realArray * array)
       ++count;
     }
     else
-      return count;//the link has only %d(count) compunonts while trying to reach [p]
+      return count;//the link has only %d(count-1) compunonts while trying to reach [p]
 
   array->current = point;
 
