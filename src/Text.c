@@ -75,7 +75,7 @@ int insert_Text(Text * text, char * msg)
  */
 int locate_Text(int p, Text * text)
 {
-  int j;
+  int j, count = 0;
   Para * point;
 
   point = text->head;
