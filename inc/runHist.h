@@ -25,3 +25,5 @@ void insert_runList(runHist * runhist);
 int locate_runList(int p, runHist * runhist);
 
 void delete_runList(runHist * runhist);
+
+double write_runHist(runHist * runhist, FILE * fp, int adp, double scaling, int flag);

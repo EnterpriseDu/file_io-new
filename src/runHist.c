@@ -121,3 +121,42 @@ int check_runHist(runHist * runhist)
   
   return runhist->length - count;
 }
+
+
+double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling, int flag)
+{
+  double sum_tau = 0.0, sum_cpu = 0.0;
+  int k = 0;
+
+  runhist->current = runhist->head;
+
+  fprintf(fp_write, "\n k  \t|\ttau\t|\tT\t|\tcurrent cpu time\t|\ttotal cpu time\n");
+  while(runhist->current)
+  {
+    runhist->current->time[0] = runhist->current->time[0]/scaling;
+    sum_tau += runhist->current->time[0];
+    sum_cpu += runhist->current->time[1];
+    if(!flag)
+    {
+      continue;
+      runhist->current = runhist->current->next;
+    }
+
+    fprintf(fp_write, "\n%04d\t|", ++k);
+    fprintf(fp_write, "\t%3.12lf\t%3.12lf\t|", runhist->current->time[0], sum_tau);
+    fprintf(fp_write, " \t%lf\t%lf\t", runhist->current->time[1], sum_cpu);
+
+    if(adp)
+    {
+      fprintf(fp_write, "    %c  %6d  %g | ", runhist->current->RcstrState[0], (int)runhist->current->RcstrErr[0], runhist->current->RcstrErr[1]);
+      fprintf(fp_write, "%c  %6d  %g | ",     runhist->current->RcstrState[1], (int)runhist->current->RcstrErr[2], runhist->current->RcstrErr[3]);
+      fprintf(fp_write, "%c  %6d  %g | ",     runhist->current->RcstrState[2], (int)runhist->current->RcstrErr[4], runhist->current->RcstrErr[5]);
+      fprintf(fp_write, "%c  %6d  %g\t",      runhist->current->RcstrState[3], (int)runhist->current->RcstrErr[6], runhist->current->RcstrErr[7]);
+      fprintf(fp_write, "    %c  %6d  %g | ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9]);
+      fprintf(fp_write, "%c  %6d  %g",      runhist->current->RcstrState[5], (int)runhist->current->RcstrErr[10], runhist->current->RcstrErr[11]);
+    }
+    runhist->current = runhist->current->next;
+  }
+
+  return sum_cpu;
+}
