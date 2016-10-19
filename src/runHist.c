@@ -129,8 +129,9 @@ double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling
   int k = 0;
 
   runhist->current = runhist->head;
-
-  fprintf(fp_write, "\n k  \t|\ttau\t|\tT\t|\tcurrent cpu time\t|\ttotal cpu time\n");
+  if(flag)
+    fprintf(fp_write, "\n k  \t|\ttau\t|\tT\t|\tcurrent cpu time\t|\ttotal cpu time\n");
+  
   while(runhist->current)
   {
     runhist->current->time[0] = runhist->current->time[0]/scaling;
@@ -138,8 +139,9 @@ double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling
     sum_cpu += runhist->current->time[1];
     if(!flag)
     {
-      continue;
       runhist->current = runhist->current->next;
+      //printf("%d\n", ++k);
+      continue;
     }
 
     fprintf(fp_write, "\n%04d\t|", ++k);
