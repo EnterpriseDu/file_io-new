@@ -127,21 +127,21 @@ int check_runHist(runHist * runhist)
 }
 
 
-double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling, int flag)
+double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_time[4], int flag_extra[2], int adp, double scaling)
 {
   double sum_tau = 0.0, sum_cpu = 0.0;
   int k = 0;
 
   runhist->current = runhist->head;
-  if(flag)
+
+  if(flag_all)
     fprintf(fp_write, "\n k  \t|\ttau\t|\tT\t|\tcurrent cpu time\t|\ttotal cpu time\n");
-  
   while(runhist->current)
   {
     runhist->current->time[0] = runhist->current->time[0]/scaling;
     sum_tau += runhist->current->time[0];
     sum_cpu += runhist->current->time[1];
-    if(!flag)
+    if(!flag_all)
     {
       runhist->current = runhist->current->next;
       //printf("%d\n", ++k);
@@ -149,8 +149,14 @@ double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling
     }
 
     fprintf(fp_write, "\n%04d\t|", ++k);
-    fprintf(fp_write, "\t%3.12lf\t%3.12lf\t|", runhist->current->time[0], sum_tau);
-    fprintf(fp_write, " \t%lf\t%lf\t", runhist->current->time[1], sum_cpu);
+    if(flag_time[0])
+      fprintf(fp_write, "\t%3.12lf", runhist->current->time[0]);
+    if(flag_time[2])
+      fprintf(fp_write, "\t%3.12lf\t|", sum_tau);
+    if(flag_time[1])
+      fprintf(fp_write, " \t%lf", runhist->current->time[1]);
+    if(flag_time[3])
+      fprintf(fp_write, " \t%lf\t", sum_cpu);
 
     if(adp)
     {
@@ -161,6 +167,7 @@ double write_runHist(runHist * runhist, FILE * fp_write, int adp, double scaling
       fprintf(fp_write, "    %c  %6d  %g | ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9]);
       fprintf(fp_write, "%c  %6d  %g",      runhist->current->RcstrState[5], (int)runhist->current->RcstrErr[10], runhist->current->RcstrErr[11]);
     }
+    printf("\n");
     runhist->current = runhist->current->next;
   }
 

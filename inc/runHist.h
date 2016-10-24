@@ -29,4 +29,4 @@ int locate_runList(int p, runHist * runhist);
 
 void delete_runList(runHist * runhist);
 
-double write_runHist(runHist * runhist, FILE * fp, int adp, double scaling, int flag);
+double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_time[4], int flag_extra[2], int adp, double scaling);
