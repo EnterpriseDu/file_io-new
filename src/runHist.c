@@ -171,7 +171,6 @@ double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_
       fprintf(fp_write, "    %c  %6d  %g %c ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9], split);
       fprintf(fp_write, "%c  %6d  %g",      runhist->current->RcstrState[5], (int)runhist->current->RcstrErr[10], runhist->current->RcstrErr[11]);
     }
-    fprintf(fp_write, "\n");
     runhist->current = runhist->current->next;
   }
 
