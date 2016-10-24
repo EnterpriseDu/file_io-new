@@ -127,7 +127,7 @@ int check_runHist(runHist * runhist)
 }
 
 
-double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_time[4], int flag_extra[2], int adp, double scaling)
+double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_time[4], int flag_extra[2], int adp, double scaling, char split)
 {
   double sum_tau = 0.0, sum_cpu = 0.0;
   int k = 0;
@@ -148,23 +148,23 @@ double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_
       continue;
     }
 
-    fprintf(fp_write, "\n%04d\t|", ++k);
+    fprintf(fp_write, "\n%04d\t%c", ++k, split);
     if(flag_time[0])
       fprintf(fp_write, "\t%3.12lf", runhist->current->time[0]);
     if(flag_time[2])
-      fprintf(fp_write, "\t%3.12lf\t|", sum_tau);
+      fprintf(fp_write, "\t%3.12lf\t%c", sum_tau, split);
     if(flag_time[1])
       fprintf(fp_write, " \t%lf", runhist->current->time[1]);
     if(flag_time[3])
-      fprintf(fp_write, " \t%lf\t", sum_cpu);
+      fprintf(fp_write, " \t%lf\t%c", sum_cpu, split);
 
     if(adp)
     {
-      fprintf(fp_write, "    %c  %6d  %g | ", runhist->current->RcstrState[0], (int)runhist->current->RcstrErr[0], runhist->current->RcstrErr[1]);
-      fprintf(fp_write, "%c  %6d  %g | ",     runhist->current->RcstrState[1], (int)runhist->current->RcstrErr[2], runhist->current->RcstrErr[3]);
-      fprintf(fp_write, "%c  %6d  %g | ",     runhist->current->RcstrState[2], (int)runhist->current->RcstrErr[4], runhist->current->RcstrErr[5]);
+      fprintf(fp_write, "    %c  %6d  %g %c ", runhist->current->RcstrState[0], (int)runhist->current->RcstrErr[0], runhist->current->RcstrErr[1], split);
+      fprintf(fp_write, "%c  %6d  %g %c ",     runhist->current->RcstrState[1], (int)runhist->current->RcstrErr[2], runhist->current->RcstrErr[3], split);
+      fprintf(fp_write, "%c  %6d  %g %c ",     runhist->current->RcstrState[2], (int)runhist->current->RcstrErr[4], runhist->current->RcstrErr[5], split);
       fprintf(fp_write, "%c  %6d  %g\t",      runhist->current->RcstrState[3], (int)runhist->current->RcstrErr[6], runhist->current->RcstrErr[7]);
-      fprintf(fp_write, "    %c  %6d  %g | ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9]);
+      fprintf(fp_write, "    %c  %6d  %g %c ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9], split);
       fprintf(fp_write, "%c  %6d  %g",      runhist->current->RcstrState[5], (int)runhist->current->RcstrErr[10], runhist->current->RcstrErr[11]);
     }
     printf("\n");
