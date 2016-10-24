@@ -157,6 +157,10 @@ double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_
       fprintf(fp_write, " \t%lf", runhist->current->time[1]);
     if(flag_time[3])
       fprintf(fp_write, " \t%lf\t%c", sum_cpu, split);
+    if(flag_extra[0])
+      fprintf(fp_write, " \t%d\t%c", runhist->current->extraINT);
+    if(flag_extra[1])
+      fprintf(fp_write, " \t%lf\t%c", runhist->current->extraREAL, split);
 
     if(adp)
     {
@@ -167,7 +171,7 @@ double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_
       fprintf(fp_write, "    %c  %6d  %g %c ", runhist->current->RcstrState[4], (int)runhist->current->RcstrErr[8], runhist->current->RcstrErr[9], split);
       fprintf(fp_write, "%c  %6d  %g",      runhist->current->RcstrState[5], (int)runhist->current->RcstrErr[10], runhist->current->RcstrErr[11]);
     }
-    printf("\n");
+    fprintf(fp_write, "\n");
     runhist->current = runhist->current->next;
   }
 
