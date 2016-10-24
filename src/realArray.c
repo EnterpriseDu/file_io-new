@@ -6,23 +6,6 @@
 #endif
 
 
-void init_realArray(realArray * array)
-{
-  array->n_box = 0;
-  array->box_size = BoxSize;
-
-  /* the capacity of the tail node
-   * it's at least 1
-   * since once a new box is required
-   * there is must a entry to put in
-   */
-  array->tail_capacity = array->box_size;
-
-  array->head = NULL;
-  array->current = NULL;
-  array->tail = NULL;
-}
-
 int insert_realArray(realArray * array)
 {
   if(array->tail)
@@ -175,6 +158,26 @@ void delete_realArray(realArray * array)
 
   array->n_box = 0;
   array->tail_capacity = array->box_size;
+}
+
+
+void init_realArray(realArray * array)
+{
+  delete_realArray(array);
+
+  array->n_box = 0;
+  array->box_size = BoxSize;
+
+  /* the capacity of the tail node
+   * it's at least 1
+   * since once a new box is required
+   * there is must a entry to put in
+   */
+  array->tail_capacity = array->box_size;
+
+  array->head = NULL;
+  array->current = NULL;
+  array->tail = NULL;
 }
 
 

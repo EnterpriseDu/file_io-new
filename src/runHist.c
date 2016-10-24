@@ -6,13 +6,6 @@
 #endif
 
 
-void init_runHist(runHist * runhist)
-{
-  runhist->length = 0;
-  runhist->head = NULL;
-  runhist->current = NULL;
-  runhist->tail = NULL;
-}
 
 int insert_runHist(runHist * runhist)
 {
@@ -103,6 +96,17 @@ void delete_runHist(runHist * runhist)
 
   runhist->head = NULL;
   locate_runHist(0, runhist);
+}
+
+
+void init_runHist(runHist * runhist)
+{
+  delete_runHist(runhist);
+
+  runhist->length = 0;
+  runhist->head = NULL;
+  runhist->current = NULL;
+  runhist->tail = NULL;
 }
 
 

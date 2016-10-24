@@ -7,16 +7,6 @@
 #endif
 
 
-void init_Text(Text * text)
-{
-  text->n_para = 0;
-
-
-  text->head = NULL;
-  text->current = NULL;
-  text->tail = NULL;
-}
-
 int insert_Text(Text * text, char * msg)
 {
   int j;
@@ -126,6 +116,17 @@ void delete_Text(Text * text)
   locate_Text(0, text);
 
   text->n_para = 0;
+}
+
+
+void init_Text(Text * text)
+{
+  delete_Text(text);
+
+  text->n_para = 0;
+  text->head = NULL;
+  text->current = NULL;
+  text->tail = NULL;
 }
 
 

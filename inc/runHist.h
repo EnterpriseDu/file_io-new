@@ -6,6 +6,9 @@ typedef struct runNode{
   double RcstrErr[12];
   double time[2];  /* time[0] is the current time step, i.e. tau
 		    * time[1] is the CPU time */
+  int extraINT;
+  double extraREAL;
+
   struct runNode * next;
 } runNode;
 
