@@ -158,7 +158,7 @@ double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_
     if(flag_time[3])
       fprintf(fp_write, " \t%lf\t%c", sum_cpu, split);
     if(flag_extra[0])
-      fprintf(fp_write, " \t%d\t%c", runhist->current->extraINT);
+      fprintf(fp_write, " \t%d\t%c", runhist->current->extraINT, split);
     if(flag_extra[1])
       fprintf(fp_write, " \t%lf\t%c", runhist->current->extraREAL, split);
 
