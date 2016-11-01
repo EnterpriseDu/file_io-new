@@ -115,3 +115,58 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
   return 0;
 }
 
+
+
+
+
+void matXwrite(int m, int n, double *data[], FILE * fp_write)
+{
+  int j = 0, i = 0;
+
+
+    for(i = 0; i < n; ++i)
+    {
+      for(j = 0; j < m; ++j)
+      {
+	fprintf(fp_write, "%.18lf\t", data[i][j]);
+      }
+      fprintf(fp_write, "\n");
+    }
+}
+
+
+void matYwrite(int m, int n, double *data[], FILE * fp_write)
+{
+  int j = 0, i = 0;
+
+    for(i = 0; i < n; ++i)
+    {
+      for(j = 0; j < m; ++j)
+      {
+	fprintf(fp_write, "%.18lf\t", data[j][i]);
+      }
+      fprintf(fp_write, "\n");
+    }
+}
+
+
+
+
+
+
+void write_vec_real(int m, double data[], FILE * fp_write)
+{
+  int j = 0;
+
+  for(j = 0; j < m; ++j)
+    fprintf(fp_write, "%.10lf\t", data[j]);
+  fprintf(fp_write, "\n");
+}
+void write_vec_int(int m, int data[], FILE * fp_write)
+{
+  int j = 0;
+
+  for(j = 0; j < m; ++j)
+    fprintf(fp_write, "%d\t", data[j]);
+  fprintf(fp_write, "\n");
+}
