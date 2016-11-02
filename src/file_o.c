@@ -139,7 +139,7 @@ int open_fruncate(char * err_msg, char * add, FILE ** fp)
   fprintf(fp, "a\n");
   if(ftruncate(fp, 0))
   {
-    sprintf(err_msg, "Fail to truncate %s! %d\n", add, state);
+    sprintf(err_msg, "Fail to truncate %s!\n", add);
     return 99;
   }
   rewind(*fp);
