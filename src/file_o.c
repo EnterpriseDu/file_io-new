@@ -119,31 +119,29 @@ int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme
 
 int open_fruncate(char * err_msg, char * add, FILE ** fp)
 {
-  int state;
   if(*fp)
   {
     sprintf(err_msg, "The file pointer is not empty!\n");
     return 99;
   }
+  /*
   if(remove(add))
   {
     sprintf(err_msg, "Fail to remove %s!\n", add);
     return 99;
   }
+  */
   if((*fp = fopen(add, "w+")) == 0)
   {
     sprintf(err_msg, "Cannot open solution output file: %s!\n", add);
     return 99;
   }
-  /*
   fprintf(fp, "a\n");
-  state = ftruncate(fp, 2);
-  if(state == -1)
+  if(ftruncate(fp, 0))
   {
     sprintf(err_msg, "Fail to truncate %s! %d\n", add, state);
     return 99;
   }
-  */
   rewind(*fp);
 
   return 0;
