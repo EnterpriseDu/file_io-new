@@ -124,24 +124,30 @@ int open_fruncate(char * err_msg, char * add, FILE ** fp)
     sprintf(err_msg, "The file pointer is not empty!\n");
     return 99;
   }
-  /*
-  if(remove(add))
-  {
-    sprintf(err_msg, "Fail to remove %s!\n", add);
-    return 99;
-  }
-  */
   if((*fp = fopen(add, "w+")) == 0)
   {
     sprintf(err_msg, "Cannot open solution output file: %s!\n", add);
     return 99;
   }
   fprintf(*fp, "a\n");
+  fclose(*fp);
+  if(remove(add))
+  {
+    sprintf(err_msg, "Fail to remove %s!\n", add);
+    return 99;
+  }
+  if((*fp = fopen(add, "w+")) == 0)
+  {
+    sprintf(err_msg, "Cannot open solution output file: %s!\n", add);
+    return 99;
+  }
+  /*
   if(ftruncate(*fp, 0))
   {
     sprintf(err_msg, "Fail to truncate %s!\n", add);
     return 99;
   }
+  */
   rewind(*fp);
 
   return 0;
