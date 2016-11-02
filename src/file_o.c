@@ -136,8 +136,8 @@ int open_fruncate(char * err_msg, char * add, FILE ** fp)
     sprintf(err_msg, "Cannot open solution output file: %s!\n", add);
     return 99;
   }
-  fprintf(fp, "a\n");
-  if(ftruncate(fp, 0))
+  fprintf(*fp, "a\n");
+  if(ftruncate(*fp, 0))
   {
     sprintf(err_msg, "Fail to truncate %s!\n", add);
     return 99;
