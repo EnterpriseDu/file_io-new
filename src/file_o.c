@@ -13,7 +13,7 @@
 
 
 
-int make_directory(char * add_mkdir, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[])
+int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[])
 {
 /* OPT[0] is the maximal step to compute.
  * OPT[1] is the time to stop the computation
@@ -91,7 +91,7 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
       stat_mkdir = mkdir(add_mkdir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
       if(!stat_mkdir)
       {
-	printf("Temporary output direcotry construction failed.\n");
+	sprintf(err_msg, "Temporary output direcotry construction failed.\n");
 	return 9;
       }
     }
@@ -116,6 +116,38 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
 }
 
 
+
+int open_fruncate(char * err_msg, char * add, FILE ** fp)
+{
+  int state;
+  if(*fp)
+  {
+    sprintf(err_msg, "The file pointer is not empty!\n");
+    return 99;
+  }
+  if(remove(add))
+  {
+    sprintf(err_msg, "Fail to remove %s!\n", add);
+    return 99;
+  }
+  if((*fp = fopen(add, "w+")) == 0)
+  {
+    sprintf(err_msg, "Cannot open solution output file: %s!\n", add);
+    return 99;
+  }
+  /*
+  fprintf(fp, "a\n");
+  state = ftruncate(fp, 2);
+  if(state == -1)
+  {
+    sprintf(err_msg, "Fail to truncate %s! %d\n", add, state);
+    return 99;
+  }
+  */
+  rewind(*fp);
+
+  return 0;
+}
 
 
 
