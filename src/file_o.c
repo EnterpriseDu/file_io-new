@@ -13,7 +13,7 @@
 
 
 
-int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[])
+int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, int const CONFIG[])
 {
 /* OPT[0] is the maximal step to compute.
  * OPT[1] is the time to stop the computation
@@ -30,19 +30,19 @@ int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme
  */
   char c_switch[4];
 
-  if(CONFIG[13])
+  if(CONFIG[0])
     c_switch[0] = 'A';
   else
     c_switch[0] = 'F';
-  if(CONFIG[16])
+  if(CONFIG[1])
     c_switch[1] = 'W';
   else
     c_switch[1] = 'S';
-  if(CONFIG[18])
+  if(CONFIG[2])
     c_switch[2] = 'D';
   else
     c_switch[2] = 'C';
-  if(CONFIG[17])
+  if(CONFIG[3])
     c_switch[3] = 'Y';
   else
     c_switch[3] = 'N';

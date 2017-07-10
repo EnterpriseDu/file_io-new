@@ -5,7 +5,7 @@
 
 
 
-int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, double const CONFIG[]);
+int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, int const CONFIG[]);
 
 
 void matXwrite(int m, int n, double *data[], FILE * fp_write);
