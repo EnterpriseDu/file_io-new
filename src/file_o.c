@@ -13,40 +13,23 @@
 
 
 
-int make_directory(char * add_mkdir, char * err_msg, char * label, char * scheme, char * version, int const m, int const n, int const CONFIG[])
+int make_directory(char * add_mkdir, char * label, char * scheme, char * version, int const m, int const n, int const SWITCH[], char * err_msg)
 {
-/* OPT[0] is the maximal step to compute.
- * OPT[1] is the time to stop the computation
- * OPT[2] is the switch of whether keep the inter-data during the computation
- * OPT[3] is the switch of whether use an adaptive mesh
- * OPT[4] denote the kind of boundary condition
- * OPT[5] indicates whether the initial data are the primitive variables [1],
- *        or the conservative ones [0]
- * OPT[6] indicates whether we use the smooth derivatives [0],
- *        or the WENO-type ones in the reconstruction
- * OPT[7] is the switch of whether use characteristic decomposition
- in the WENO reconstruction
- * OPT[8] is the switch of whether use the limiter in the reconstruction
- */
   char c_switch[4];
 
-  if(CONFIG[0])
-    c_switch[0] = 'A';
+  if(SWITCH[0])
+    c_switch[0] = 'W';
   else
-    c_switch[0] = 'F';
-  if(CONFIG[1])
-    c_switch[1] = 'W';
+    c_switch[0] = 'S';
+  if(SWITCH[1])
+    c_switch[1] = 'D';
   else
-    c_switch[1] = 'S';
-  if(CONFIG[2])
-    c_switch[2] = 'D';
+    c_switch[1] = 'C';
+  if(SWITCH[2])
+    c_switch[2] = 'Y';
   else
-    c_switch[2] = 'C';
-  if(CONFIG[3])
-    c_switch[3] = 'Y';
-  else
-    c_switch[3] = 'N';
-  c_switch[4] = '\0';
+    c_switch[2] = 'N';
+  c_switch[3] = '\0';
 
 
 

@@ -1,7 +1,8 @@
 #define runHistFlag 1
 
 typedef struct runNode{
-  int *trouble0, *trouble1;
+  int *trouble0;
+  int *trouble1;
   char RcstrState[6];
   double RcstrErr[12];
   double time[2];  /* time[0] is the current time step, i.e. tau
@@ -14,7 +15,9 @@ typedef struct runNode{
 
 
 typedef struct{
-  runNode * head, * current, * tail;
+  runNode * head;
+  runNode * current;
+  runNode * tail;
   int length;
 } runHist;
 

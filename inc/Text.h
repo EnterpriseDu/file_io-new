@@ -9,7 +9,9 @@ typedef struct Para{
 typedef struct{
   int n_para;
 
-  Para * head, * tail, * current;
+  Para * head;
+  Para * tail;
+  Para * current;
 } Text;
 
 

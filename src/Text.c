@@ -109,9 +109,12 @@ void delete_Text(Text * text)
   }
 
   text->tail = NULL;
-  if(text->head->words)
-    free(text->head->words);
-
+  if(text->head)
+  {
+    if(text->head->words)
+      free(text->head->words);
+    free(text->head);
+  }
   text->head = NULL;
   locate_Text(0, text);
 

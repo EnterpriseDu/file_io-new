@@ -12,7 +12,9 @@ typedef struct{
   int box_size;
   int tail_capacity;
 
-  realBox * head, * tail, * current;
+  realBox * head;
+  realBox * tail;
+  realBox * current;
 } realArray;
 
 
