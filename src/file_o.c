@@ -138,6 +138,38 @@ int open_fruncate(char * err_msg, char * add, FILE ** fp)
 
 
 
+void intXwrite(int m, int n, int *data[], FILE * fp_write)
+{
+  int j = 0, i = 0;
+
+
+    for(i = 0; i < n; ++i)
+    {
+      for(j = 0; j < m; ++j)
+      {
+	fprintf(fp_write, "%d\t", data[i][j]);
+      }
+      fprintf(fp_write, "\n");
+    }
+}
+
+
+void intYwrite(int m, int n, int *data[], FILE * fp_write)
+{
+  int j = 0, i = 0;
+
+    for(i = 0; i < n; ++i)
+    {
+      for(j = 0; j < m; ++j)
+      {
+	fprintf(fp_write, "%d\t", data[j][i]);
+      }
+      fprintf(fp_write, "\n");
+    }
+}
+
+
+
 void matXwrite(int m, int n, double *data[], FILE * fp_write)
 {
   int j = 0, i = 0;
