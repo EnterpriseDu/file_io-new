@@ -101,7 +101,7 @@ void delete_runHist(runHist * runhist)
 
 void init_runHist(runHist * runhist)
 {
-  delete_runHist(runhist);
+  //delete_runHist(runhist);
 
   runhist->length = 0;
   runhist->head = NULL;

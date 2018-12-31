@@ -163,7 +163,7 @@ void delete_realArray(realArray * array)
 
 void init_realArray(realArray * array)
 {
-  delete_realArray(array);
+  //delete_realArray(array);
 
   array->n_box = 0;
   array->box_size = BoxSize;

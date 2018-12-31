@@ -124,7 +124,7 @@ void delete_Text(Text * text)
 
 void init_Text(Text * text)
 {
-  delete_Text(text);
+  //delete_Text(text);
 
   text->n_para = 0;
   text->head = NULL;
