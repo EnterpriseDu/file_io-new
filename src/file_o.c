@@ -62,26 +62,28 @@ int make_directory(char * add_mkdir, char * label, char * scheme, char * version
 
   dir_test = opendir(add_mkdir);
   if(dir_test != NULL)
+  {
+    closedir(dir_test);
     printf("\nOutput directory [%s]\n.Already exists.\n\n", add_mkdir);
+  }
   else
   {
     stat_mkdir = mkdir(add_mkdir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
     if(stat_mkdir)
     {
       printf("\nOutput directory [%s]\n construction failed.\n", add_mkdir);
-      add_mkdir = "~/HWENO_2D_tmp/";
+      add_mkdir = "~/";
       printf("Output direcotry changed to [%s].\n", add_mkdir);
       stat_mkdir = mkdir(add_mkdir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
       if(!stat_mkdir)
       {
-	sprintf(err_msg, "Temporary output direcotry construction failed.\n");
-	return 9;
+	      sprintf(err_msg, "Temporary output direcotry construction failed.\n");
+	      return 9;
       }
     }
     else
       printf("\nOutput directory [%s].\nNewly constructed.\n\n", add_mkdir);
   }
-  closedir(dir_test);
   strcpy(sub_dire, add_mkdir);
   strcat(sub_dire, "rho\0");
   //printf("%s\n", sub_dire);
