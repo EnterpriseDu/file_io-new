@@ -10,7 +10,7 @@
 #endif
 
 
-int in_ch_set(char ch, char *set, int n_set)
+int in_char_set(char ch, char *set, int n_set)
 {
   int i;
   for(i = 0; i < n_set; ++i)
@@ -21,7 +21,12 @@ int in_ch_set(char ch, char *set, int n_set)
 
 
 
-/* Example 1: input : '  123   '
+/*
+ * This function read the text in file 'fp' until
+ * a spacing character is encountered.
+ * A word followed by the last spacing character is returned.
+ *
+ * Example 1: input : '  123   '
  *            output: '123 '
  *
  * Example 2: input : '123EOF'
@@ -52,13 +57,15 @@ int buff_read(FILE * fp, char *buff, char *space, int n_space, char comment)
      * leave the function.
      */
     if(flag_comment)
+    {
       if((ch == '\n') || (ch == EOF))
       {
-	buff[count++] = ch;
-	break;
+	      buff[count++] = ch;
+	      break;
       }
       else
-	continue;
+	      continue;
+    }
     if(ch == comment)
     {
       flag_comment = 1;
@@ -70,28 +77,27 @@ int buff_read(FILE * fp, char *buff, char *space, int n_space, char comment)
     if(flag)
     {
       //now an 'space' one, finish reading
-      if(in_ch_set(ch, space, n_space))
+      if(in_char_set(ch, space, n_space))
       {
-	buff[count++] = ch;
-	break;
+	      buff[count++] = ch;
+	      break;
       }
     }
     //if we haven't caught a "meaningful" charactor
     else
     {
       //still a 'space' one
-      if(in_ch_set(ch, space, n_space))
-	//sencible for '\n'
-	if(ch == '\n')
-	{
-	  buff[count++] = ch;
-	  break;
-	}
-	else
-	  continue;
-      //now we firstly catch a "meaningful" charactor, set the flag to be non-zero
+      if(in_char_set(ch, space, n_space))//sensible for '\n'
+	      if(ch == '\n')
+  	    {
+	        buff[count++] = ch;
+	        break;
+	      }
+	      else
+	        continue;
+          //now we firstly catch a "meaningful" charactor, set the flag to be non-zero
       else
-	flag = 1;
+	      flag = 1;
     }
 
     /* If we come to these codes, we are in a situation that
@@ -137,13 +143,13 @@ int real_read
 (realArray * array, char * end, FILE * fp, char * buffer, char * number, char comment,
  char barrier, char * space, int n_space, char * digit_real, int n_digit_real, char * err_msg)
 {
-  if(in_ch_set(comment, space, n_space))
+  if(in_char_set(comment, space, n_space))
   {
     sprintf(err_msg, "comment<space\n");
     return -1;
   }
   /*
-  if(!in_ch_set(end, space, n_space));
+  if(!in_char_set(end, space, n_space));
   {
     sprintf(err_msg, "end!<space\n");
     return -2;
@@ -182,7 +188,7 @@ int real_read
     /* buffer[length-1] is the end mark, either a 'space' or 'EOF'
      */
     end_mark = buffer[length-1];
-    if(!in_ch_set(end_mark, space, n_space) && (end_mark != EOF))
+    if(!in_char_set(end_mark, space, n_space) && (end_mark != EOF))
     {
       sprintf(err_msg, "Wrong ending mark! %x\n", end_mark);
       return count;
@@ -194,9 +200,9 @@ int real_read
     //just a ending mark in the buffer
     if(length == 1)
       if((end_mark == barrier) || (end_mark == EOF))
-	break;
+	      break;
       else
-	continue;
+	      continue;
 
 
     //convert the string into a real number
@@ -214,8 +220,8 @@ int real_read
       mem = insert_realArray(array);
       if(mem)
       {
-	sprintf(err_msg, "Fail to add a new box, current box %d\n", mem);
-	return count;
+	      sprintf(err_msg, "Fail to add a new box, current box %d\n", mem);
+	      return count;
       }
       array->tail->cargos[(array->tail_capacity)++] = sign*str2real(number);
       ++count;
@@ -238,17 +244,22 @@ int real_read
 
 
 
+/* After this function, text in 'fp_data' is store in 'text'
+ * until the 'barrier' is encountered.
+ * Each WORD in the original file becomes one 'Para'.
+ * A WORD is a component of the text seperated by SPACING characters.
+ */
 int string_read
 (Text * text, char * end, FILE * fp, char * buffer, char comment,
  char barrier, char * space, int n_space, char * err_msg)
 {
-  if(in_ch_set(comment, space, n_space))
+  if(in_char_set(comment, space, n_space))
   {
     sprintf(err_msg, "comment<space");
     return -1;
   }
   /*
-  if(!in_ch_set(end, space, n_space));
+  if(!in_char_set(end, space, n_space));
   {
     sprintf(err_msg, "end!<space\n");
     return -2;
@@ -287,7 +298,7 @@ int string_read
     /* buffer[length-1] is the end mark, either a 'space' or 'EOF'
      */
     end_mark = buffer[length-1];
-    if(!in_ch_set(end_mark, space, n_space) && (end_mark != EOF))
+    if(!in_char_set(end_mark, space, n_space) && (end_mark != EOF))
     {
       sprintf(err_msg, "Wrong ending mark! %x.", end_mark);
       return count;
@@ -299,9 +310,9 @@ int string_read
     //just a ending mark in the buffer
     if(length == 1)
       if((end_mark == barrier) || (end_mark == EOF))
-	break;
+	      break;
       else
-	continue;
+	      continue;
 
 
 
