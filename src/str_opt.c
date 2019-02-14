@@ -32,7 +32,7 @@ int is_real(char *str, char *digit, int n_digit)
   for(j = 0; j < length; ++j)
   {
     //if( !((str[j] == 46)||(str[j] == 45)||(str[j] == 43)||(str[j] == 69)||(str[j] == 101)||((str[j] > 47) && (str[j] < 58))) )
-    if(!in_ch_set(str[j], digit, n_digit))
+    if(!in_char_set(str[j], digit, n_digit))
       return 0;
 
     if((str[j] == 69) || (str[j] == 101))
@@ -142,7 +142,7 @@ int is_int(char * str, char *digit, int n_digit)
 
   for(j = 0; j < length; ++j)
     //if( !((str[j] == 45)||(str[j] == 43)||((str[j] > 47) && (str[j] < 58))) )
-    if(!in_ch_set(str[j], digit, n_digit))
+    if(!in_char_set(str[j], digit, n_digit))
       return 0;
 
 
