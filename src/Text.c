@@ -16,7 +16,7 @@ int insert_Text(Text * text, char * msg)
   {
     text->tail->next = (Para *)malloc(sizeof(Para));
     if(!text->tail->next)
-      return text->n_para;
+      return text->n_para+1;
 
     text->tail->next->words = NULL;
     text->tail->next->words = (char *)malloc((len_msg+1)*sizeof(char));
@@ -24,7 +24,7 @@ int insert_Text(Text * text, char * msg)
     {
       free(text->tail->next);
       text->tail->next = NULL;
-      return text->n_para;
+      return text->n_para+1;
     }
     for(j = 0; j < len_msg; ++j)
       text->tail->next->words[j] = msg[j];
@@ -36,7 +36,7 @@ int insert_Text(Text * text, char * msg)
   {
     text->tail = (Para *)malloc(sizeof(Para));
     if(!text->tail)
-      return text->n_para;
+      return text->n_para+1;
 
     text->tail->words = NULL;
     text->tail->words = (char *)malloc((len_msg+1)*sizeof(char));
@@ -44,7 +44,7 @@ int insert_Text(Text * text, char * msg)
     {
       free(text->tail);
       text->tail = NULL;
-      return text->n_para;
+      return text->n_para+1;
     }
     for(j = 0; j < len_msg; ++j)
       text->tail->words[j] = msg[j];
@@ -71,18 +71,58 @@ int locate_Text(int p, Text * text)
   point = text->head;
   for(j = 0; j < p; ++j)
     if(point->next)
-    if(point->next)
     {
       point = point->next;
       ++count;
     }
     else
       return count;//the link has only %d(count-1) compunonts while trying to reach [p]
+      /*
+      sprintf(err_msg, "Failed to locate at position %d (count form 0) in 'source'. Stopped at trying to reach %d which is NULL.", p, count;
+      */
 
   text->current = point;
   return 0;
 }
 
+int drop_Text(int p, Text * text)
+{
+  int state;
+  Para * pt, * previous;
+
+  if(text->n_para == 0)
+    return 0;
+  if(p >= text->n_para)
+    return 1;
+
+  if(p == 0)
+  {
+    previous = NULL;
+    pt = text->head;
+    text->head = pt->next;
+    free(pt);
+  }
+  else
+  {
+    state = locate_Text(p-1, text);
+    if(state)
+      return 2;
+    previous = text->current;
+    state = locate_Text(p, text);
+    if(state)
+      return 3;
+    previous->next = text->current->next;
+    free(text->current);
+    text->current = NULL;
+  }
+
+  /* The case where p==0 and n_para==1 is included. */
+  if(p == text->n_para-1)
+    text->tail = previous;
+  --(text->n_para);
+
+  return 0;
+}
 
 
 void delete_Text(Text * text)
@@ -119,6 +159,34 @@ void delete_Text(Text * text)
   locate_Text(0, text);
 
   text->n_para = 0;
+}
+
+
+int copy_Text(Text * dest, Text * source, char * err_msg)
+{
+  int state, count = 0;
+
+  delete_Text(dest);
+  dest->n_para = source->n_para;
+  source->current = source->head;
+  while(source->current != NULL)
+  {
+    state = insert_Text(dest, source->current->words);
+    if(state)
+    {
+      sprintf(err_msg, "Failed to insert the %d-th (count form 0) item in 'dest'.", state-1);
+      return state;
+    }
+    source->current = source->current->next;
+    ++count;
+  }
+
+  if(count != dest->n_para)
+  {
+    sprintf(err_msg, "The number of items actually inserted into 'dest' is not equal to the length of 'source' : %d-%d.", count, source->n_para);
+    return count;
+  }
+  return 0;
 }
 
 

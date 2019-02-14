@@ -57,7 +57,7 @@ int str2int(char * number);
 double str2real(char * number);
 
 
-int in_ch_set(char ch, char *set, int n_set);
+int in_char_set(char ch, char *set, int n_set);
 
 int buff_read(FILE * fp, char *buff, char *space, int n_space, char comment);
 

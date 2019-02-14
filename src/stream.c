@@ -244,8 +244,7 @@ int real_read
 
 
 
-/* After this function, text in 'fp_data' is store in 'text'
- * until the 'barrier' is encountered.
+/* Read the text in 'fp' until the 'barrier' is encountered.
  * Each WORD in the original file becomes one 'Para'.
  * A WORD is a component of the text seperated by SPACING characters.
  */
