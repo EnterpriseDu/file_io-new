@@ -167,7 +167,6 @@ int copy_Text(Text * dest, Text * source, char * err_msg)
   int state, count = 0;
 
   delete_Text(dest);
-  dest->n_para = source->n_para;
   source->current = source->head;
   while(source->current != NULL)
   {
