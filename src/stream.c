@@ -143,9 +143,9 @@ int real_read
 (realArray * array, char * end, FILE * fp, char * buffer, char * number, char comment,
  char barrier, char * space, int n_space, char * digit_real, int n_digit_real, char * err_msg)
 {
-  if(in_char_set(comment, space, n_space))
+  if(in_char_set(comment, space, n_space) || comment==barrier)
   {
-    sprintf(err_msg, "comment<space\n");
+    sprintf(err_msg, "Either comment<space or comment=barrier.");
     return -1;
   }
   /*
@@ -210,7 +210,7 @@ int real_read
     sign = is_real(number, digit_real, n_digit_real);
     if(!sign)
     {
-      sprintf(err_msg, "nan\n");
+      sprintf(err_msg, "String in buffer is not a number : %s\n", buffer);
       return count;
     }
 
@@ -252,9 +252,9 @@ int string_read
 (Text * text, char * end, FILE * fp, char * buffer, char comment,
  char barrier, char * space, int n_space, char * err_msg)
 {
-  if(in_char_set(comment, space, n_space))
+  if(in_char_set(comment, space, n_space) || comment==barrier)
   {
-    sprintf(err_msg, "comment<space");
+    sprintf(err_msg, "Either comment<space or comment=barrier.");
     return -1;
   }
   /*
