@@ -21,15 +21,17 @@ typedef struct{
   int length;
 } runHist;
 
-typedef runHist runList;
+//typedef runHist runList;
 
 
-void init_runList(runHist * runhist);
+void init_runHist(runHist * runhist);
 
-void insert_runList(runHist * runhist);
+int insert_runHist(runHist * runhist);
 
-int locate_runList(int p, runHist * runhist);
+int locate_runHist(int p, runHist * runhist);
 
-void delete_runList(runHist * runhist);
+void delete_runHist(runHist * runhist);
 
 double write_runHist(runHist * runhist, FILE * fp_write, int flag_all, int flag_time[4], int flag_extra[2], int adp, double scaling, char split);
+
+int check_runHist(runHist * runhist);
