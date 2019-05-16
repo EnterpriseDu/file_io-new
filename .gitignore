@@ -3,6 +3,10 @@
 *~
 null
 
+*.d
+*.d.*
+.vscode/ipch
+
 src/*.[oa]
 inc/*.[oa]
 src/*~
